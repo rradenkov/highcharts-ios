@@ -122,6 +122,12 @@ class OptionsProvider {
             area.data = series
             area.color = HIColor(rgb: 255, green: 255, blue: 255)
             area.name = options["title"] as! String
+
+            let animation = HIAnimationOptionsObject()
+            animation.duration = 0
+            area.animation = animation
+
+
             hioptions.series = [area]
             
             return hioptions
@@ -217,6 +223,11 @@ class OptionsProvider {
             column.showInLegend = false
             column.data = series
             column.name = options["title"] as! String
+
+            let animation = HIAnimationOptionsObject()
+            animation.duration = 0
+            column.animation = animation
+
             hioptions.series = [column]
             
             return hioptions
@@ -310,6 +321,11 @@ class OptionsProvider {
             spline.showInLegend = false
             spline.data = series
             spline.name = options["title"] as! String
+
+            let animation = HIAnimationOptionsObject()
+            animation.duration = 0
+            spline.animation = animation
+
             hioptions.series = [spline]
             
             return hioptions
