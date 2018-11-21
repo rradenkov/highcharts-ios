@@ -26,6 +26,8 @@
 		45DAC0C51F56A9210004F0B1 /* DataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DAC0C31F56A9210004F0B1 /* DataViewController.swift */; };
 		45DAC0C61F56A9210004F0B1 /* DataViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 45DAC0C41F56A9210004F0B1 /* DataViewController.xib */; };
 		45DAC0C81F56A9960004F0B1 /* OptionsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45DAC0C71F56A9960004F0B1 /* OptionsProvider.swift */; };
+		755BB2E221A2BD0500B809E1 /* ChartTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 755BB2E021A2BD0500B809E1 /* ChartTableViewCell.swift */; };
+		755BB2E321A2BD0500B809E1 /* ChartTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 755BB2E121A2BD0500B809E1 /* ChartTableViewCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -62,6 +64,8 @@
 		45DAC0C31F56A9210004F0B1 /* DataViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataViewController.swift; sourceTree = "<group>"; };
 		45DAC0C41F56A9210004F0B1 /* DataViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DataViewController.xib; sourceTree = "<group>"; };
 		45DAC0C71F56A9960004F0B1 /* OptionsProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionsProvider.swift; sourceTree = "<group>"; };
+		755BB2E021A2BD0500B809E1 /* ChartTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartTableViewCell.swift; sourceTree = "<group>"; };
+		755BB2E121A2BD0500B809E1 /* ChartTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChartTableViewCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +101,7 @@
 		45DAC0901F56A5680004F0B1 /* HighFit */ = {
 			isa = PBXGroup;
 			children = (
+				755BB2DB21A2BCA300B809E1 /* Views */,
 				45DAC0AB1F56A7BD0004F0B1 /* Resources */,
 				45DAC0AC1F56A7CC0004F0B1 /* ViewControllers */,
 				45DAC0AD1F56A7D80004F0B1 /* Models */,
@@ -156,6 +161,15 @@
 				45DAC09A1F56A5690004F0B1 /* LaunchScreen.storyboard */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		755BB2DB21A2BCA300B809E1 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				755BB2E021A2BD0500B809E1 /* ChartTableViewCell.swift */,
+				755BB2E121A2BD0500B809E1 /* ChartTableViewCell.xib */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,6 +235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				45DAC0BE1F56A8EB0004F0B1 /* ListDataTableViewController.xib in Resources */,
+				755BB2E321A2BD0500B809E1 /* ChartTableViewCell.xib in Resources */,
 				45DAC09C1F56A5690004F0B1 /* LaunchScreen.storyboard in Resources */,
 				45DAC0991F56A5680004F0B1 /* Assets.xcassets in Resources */,
 				45DAC0B61F56A85E0004F0B1 /* DataSteps.json in Resources */,
@@ -245,6 +260,7 @@
 				45DAC0C51F56A9210004F0B1 /* DataViewController.swift in Sources */,
 				45DAC0C81F56A9960004F0B1 /* OptionsProvider.swift in Sources */,
 				45DAC0B91F56A8C10004F0B1 /* DashboardViewController.swift in Sources */,
+				755BB2E221A2BD0500B809E1 /* ChartTableViewCell.swift in Sources */,
 				45DAC0BD1F56A8EB0004F0B1 /* ListDataTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

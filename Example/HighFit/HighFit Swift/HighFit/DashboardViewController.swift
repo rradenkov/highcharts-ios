@@ -14,8 +14,7 @@ class DashboardViewController: UITableViewController, HIChartViewDelegate {
     var sources: [[String:Any]]!
     var data: [Any]!
     var dataName: String!
-    var charts: [HIChartView]!
-    
+
     private static let sharedInstance = DashboardViewController(nibName: nil, bundle: nil)
     
     public class func sharedDashboard() -> DashboardViewController {
@@ -31,8 +30,18 @@ class DashboardViewController: UITableViewController, HIChartViewDelegate {
         
         self.loadSourcesAndData()
         
-        self.tableView.rowHeight = 240.0
-        
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.estimatedRowHeight = 240.0
+
+        let nibCell = UINib(nibName: "ChartTableViewCell", bundle: nil)
+        self.tableView.register(nibCell, forCellReuseIdentifier: "ChartTableViewCell")
+
+/*
+        let types = Set(sources.map({ $0["chartType"] as! String }))
+        types.forEach({ identifier in
+            self.tableView.register(nibCell, forCellReuseIdentifier: identifier)
+        })
+*/
         self.tableView.tableHeaderView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: self.tableView.bounds.size.width, height: 0.01))
         
         self.dataName = "day"
@@ -66,67 +75,44 @@ class DashboardViewController: UITableViewController, HIChartViewDelegate {
     }
     
     // MARK: - Table view data source
-    
+    /*
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 250.0
     }
-    
+    */
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.data.count
+        return self.data.count * 5
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var options = self.sources[indexPath.row]
+        var options = self.sources[indexPath.row % 3]
         
-        let cellReuseIdentifier: String = options["chartType"] as! String
-        
-        var cell: UITableViewCell? = tableView.dequeueReusableCell(withIdentifier: cellReuseIdentifier)
-        
-        if cell == nil {
-            cell = UITableViewCell(style: .default, reuseIdentifier: cellReuseIdentifier)
-            
-            cell!.selectionStyle = UITableViewCellSelectionStyle.none
-            
-            let chartView = HIChartView(frame: CGRect(x: 5.0, y: 5.0, width: self.view.bounds.size.width - 20, height: 240.0))
-            chartView.backgroundColor = UIColor.clear
-            chartView.delegate = self
-            
-            let seriesData = self.data[indexPath.row] as! [String: Any]
-            let series = seriesData[self.dataName] as! [Int]
-            var sum = 0
-            for number in series {
-                sum += number
-            }
-            
-            options["subtitle"] = "\(sum) \(options["unit"]!)"
-            
-            chartView.options = OptionsProvider.provideOptions(forChartType: options, series: series, type: "day")
-            
-            cell!.addSubview(chartView)
-            
-            self.charts.append(chartView)
-            
-            let button = UIButton(type: .custom)
-            button.setImage(UIImage(named: "ic_info_outline_white"), for: .normal)
-            
-            button.frame = CGRect(x: self.view.bounds.size.width - 20.0 - 5.0 - 24.0, y: 15.0, width: 24, height: 24)
-            
-            button.tag = indexPath.row
-            button.addTarget(self, action: #selector(self.showDetailData), for: .touchUpInside)
-            
-            chartView.addSubview(button)
-            
-            return cell!
+        //let cellReuseIdentifier: String = options["chartType"] as! String
+
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ChartTableViewCell", for: indexPath) as? ChartTableViewCell else {
+            return UITableViewCell()
         }
-        else {
-            self.updateCellButtonTag(cell!, newIndex: indexPath.row)
+
+        let seriesData = self.data[indexPath.row % 3] as! [String: Any]
+        let series = seriesData[self.dataName] as! [Int]
+        var sum = 0
+        for number in series {
+            sum += number
         }
-        
-        return cell!
+
+        options["subtitle"] = "\(sum) \(options["unit"]!)"
+
+        cell.chartView.delegate = self
+        cell.chartView.options = OptionsProvider.provideOptions(forChartType: options, series: series, type: "day")
+
+        cell.button.tag = indexPath.row
+        cell.button.addTarget(self, action: #selector(self.showDetailData), for: .touchUpInside)
+
+        return cell
     }
     
     /*
@@ -216,9 +202,7 @@ class DashboardViewController: UITableViewController, HIChartViewDelegate {
     
     private func loadSourcesAndData() {
         self.data = [Any]()
-        
-        self.charts = [HIChartView]()
-        
+
         self.sources = UserDefaults.standard.value(forKey: "sources") as! [[String:Any]]
         
         var tmpData = [Any]()
