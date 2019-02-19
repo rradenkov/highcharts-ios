@@ -66,14 +66,22 @@ class DashboardViewController: UITableViewController, HIChartViewDelegate {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        self.tableView.reloadData()
+        //self.tableView.reloadData()
+        reloadTableView()
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
+    private func reloadTableView() {
+        tableView.reloadData()
+        for index in 0...tableView(tableView, numberOfRowsInSection: 0) {
+            let _ = getOrCreateChartFromCache(index: index)
+        }
+    }
+
     // MARK: - Table view data source
     /*
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -89,7 +97,6 @@ class DashboardViewController: UITableViewController, HIChartViewDelegate {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        var options = self.sources[indexPath.row % 3]
         
         //let cellReuseIdentifier: String = options["chartType"] as! String
 
@@ -97,17 +104,8 @@ class DashboardViewController: UITableViewController, HIChartViewDelegate {
             return UITableViewCell()
         }
 
-        let seriesData = self.data[indexPath.row % 3] as! [String: Any]
-        let series = seriesData[self.dataName] as! [Int]
-        var sum = 0
-        for number in series {
-            sum += number
-        }
-
-        options["subtitle"] = "\(sum) \(options["unit"]!)"
-
-        cell.chartView.delegate = self
-        cell.chartView.options = OptionsProvider.provideOptions(forChartType: options, series: series, type: "day")
+        let chartView = getOrCreateChartFromCache(index: indexPath.row)
+        cell.chartView = chartView
 
         cell.button.tag = indexPath.row
         cell.button.addTarget(self, action: #selector(self.showDetailData), for: .touchUpInside)
@@ -172,7 +170,8 @@ class DashboardViewController: UITableViewController, HIChartViewDelegate {
         }
         
         self.loadSourcesAndData()
-        self.tableView.reloadData()
+        //self.tableView.reloadData()
+        reloadTableView()
     }
     
     func dataSourceRem(_ dataSource: [String: Any]) {
@@ -185,7 +184,8 @@ class DashboardViewController: UITableViewController, HIChartViewDelegate {
         }
         
         self.loadSourcesAndData()
-        self.tableView.reloadData()
+        //self.tableView.reloadData()
+        reloadTableView()
     }
     
     private func updateCellButtonTag(_ cell: UITableViewCell, newIndex index: Int) {
@@ -221,7 +221,34 @@ class DashboardViewController: UITableViewController, HIChartViewDelegate {
         }
         self.data = tmpData
     }
-    
+
+
+    private var chartViewsCache: [Int: HIChartView] = [:]
+    private func getOrCreateChartFromCache(index: Int) -> HIChartView {
+        if let chartView = chartViewsCache[index] {
+            return chartView
+        }
+
+        let chartView = HIChartView()
+
+        var options = self.sources[index % 3]
+
+        let seriesData = self.data[index % 3] as! [String: Any]
+        let series = seriesData[self.dataName] as! [Int]
+        var sum = 0
+        for number in series {
+            sum += number
+        }
+
+        options["subtitle"] = "\(sum) \(options["unit"]!)"
+
+        //chartView.delegate = self
+        chartView.options = OptionsProvider.provideOptions(forChartType: options, series: series, type: "day")
+
+        chartViewsCache[index] = chartView
+        return chartView
+    }
+
     @objc func showDetailData(_ sender: UIButton) {
         self.tabBarController?.selectedIndex = 1
         

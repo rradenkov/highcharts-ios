@@ -15,15 +15,15 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="251" id="KGk-i7-Jjw" customClass="ChartTableViewCell" customModule="HighFit" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="320" height="251"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="250.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JMt-qF-RIf" customClass="HIChartView">
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SeX-vH-V5E">
                         <rect key="frame" x="5" y="5" width="300" height="240"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="240" id="aSN-lH-HER"/>
+                            <constraint firstAttribute="height" constant="240" id="dQt-ve-XVu"/>
                         </constraints>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Adc-rv-34w">
@@ -36,19 +36,18 @@
                     </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="JMt-qF-RIf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="1XC-Oz-M0M"/>
-                    <constraint firstItem="JMt-qF-RIf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="3cf-Kl-iIK"/>
-                    <constraint firstItem="JMt-qF-RIf" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="3gU-i8-42s"/>
-                    <constraint firstAttribute="bottom" secondItem="JMt-qF-RIf" secondAttribute="bottom" constant="5" id="4ZW-8M-OE4"/>
+                    <constraint firstAttribute="bottom" secondItem="SeX-vH-V5E" secondAttribute="bottom" constant="5" id="9Je-aR-zLW"/>
                     <constraint firstItem="Adc-rv-34w" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="Nzo-AB-RDL"/>
-                    <constraint firstAttribute="trailing" secondItem="JMt-qF-RIf" secondAttribute="trailing" constant="15" id="aVH-TU-I4M"/>
+                    <constraint firstItem="SeX-vH-V5E" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="5" id="SMp-Bw-XB0"/>
+                    <constraint firstAttribute="trailing" secondItem="SeX-vH-V5E" secondAttribute="trailing" constant="15" id="qax-Ub-bSj"/>
                     <constraint firstAttribute="trailing" secondItem="Adc-rv-34w" secondAttribute="trailing" constant="25" id="tbb-Qb-xSJ"/>
+                    <constraint firstItem="SeX-vH-V5E" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="xuv-Ji-wsY"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="button" destination="Adc-rv-34w" id="0ji-4T-EXd"/>
-                <outlet property="chartView" destination="JMt-qF-RIf" id="Gvv-aD-Jh1"/>
+                <outlet property="chartViewContainer" destination="SeX-vH-V5E" id="Ivp-gU-sLB"/>
             </connections>
             <point key="canvasLocation" x="137.59999999999999" y="246.02698650674665"/>
         </tableViewCell>
